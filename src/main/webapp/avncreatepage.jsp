@@ -103,8 +103,9 @@ select{
  
 Product &#160;&#160;&#160;&#160;&#160;<select name="product">
   <option value="SELECT">--Select--</option>
-  <option value="DIGITAL TV">DIGITAL TV</option>
-  <option value="BROADBAND">BROADBAND</option>
+  <option value="DIGITAL TV">MY WIRELESS</option>
+  <option value="BROADBAND">INTERNET</option>
+  <option value="BROADBAND">TV/option>
   <option value="PAYMENT">PAYMENT</option>
   </select><br>
 Prob Descp&#160;<input type="text" name="problemdescription"><br>
@@ -121,8 +122,8 @@ Status       &#160;&#160;&#160;&#160;&#160;&#160; <input type="text" name="statu
 </div>
 
 <div id="footer" style="color: #4d4d69;">
-<p>2017 &#169;AVN COMMUNICATION. All Rights Reserved.<br>
-   | Small Business | Medium Business | Large Business | Wholesale |</p>
+<p>2017 &#169;MARSLANDER TELECOM LIMITED. All Rights Reserved.<br>
+   | About Us | Latest News | Announcements | Privacy |</p>
 </div>
 </body>
 </html>
