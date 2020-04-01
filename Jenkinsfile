@@ -33,10 +33,7 @@ node {
      stage('Deploy to QA') {
 	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://13.91.95.206:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
     }
-	stage ('JIRA Integration') {
-	jiraIssueSelector(issueSelector: [$class: 'DefaultIssueSelector'])
-		//jiraComment body: 'Issue is Fixed & deployed', issueKey: 'AYON-3'
-	}
+
     
       stage('Functional Testing') {
 	//rtMaven.tool = "maven"
@@ -56,5 +53,13 @@ node {
 		slackSend channel: '#devopstraining', color: 'Green', message: 'Pipeline Script is Working!', teamDomain: 'learningdevops-hq', tokenCredentialId: 'slack'
 	}		
 	
-	
+	stage ('JIRA Integration') {
+	//jiraIssueSelector(issueSelector: [$class: 'DefaultIssueSelector'])
+		
+	step([$class: 'hudson.plugins.jira.JiraIssueUpdater', 
+	      issueSelector: [$class: 'hudson.plugins.jira.selector.DefaultIssueSelector'],
+	      scm: [$class: 'hudson.plugins.git.GitSCM'],
+		labels: [ "some-label" ]]);	
+		//jiraComment body: 'Issue is Fixed & deployed', issueKey: 'AYON-3'
+	}
 }
