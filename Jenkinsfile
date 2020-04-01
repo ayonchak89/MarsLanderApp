@@ -4,10 +4,12 @@ node {
     def server = Artifactory.server "artifactory"
     // Create an Artifactory Maven instance.
     def rtMaven = Artifactory.newMavenBuild()
+    def rtMavenQA = Artifactory.newMavenBuild()	
     def buildInfo
     
  rtMaven.tool = "maven"
-
+ rtMavenQA.tool = "maven"
+	
     stage('Clone sources') {
         git url: 'https://github.com/ayonchak89/MarsLanderApp.git'
     }
@@ -37,9 +39,9 @@ node {
 	}
     
       stage('Functional Testing') {
-	rtMaven.tool = "maven"
-	git 'https://github.com/ayonchak89/MarsLanderApp.git'
-	buildInfo = rtMaven.run pom: 'functionaltest/pom.xml', goals: 'test'
+	//rtMaven.tool = "maven"
+	//git 'https://github.com/ayonchak89/MarsLanderApp.git'
+	buildInfo = rtMavenQA.run pom: 'functionaltest/pom.xml', goals: 'test'
 	publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\functionaltest\\target\\surefire-reports\\', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
 	      
 	}
