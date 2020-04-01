@@ -29,7 +29,7 @@ node {
     }
 
      stage('Deploy to QA') {
-	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://40.118.144.118:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
+	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://40.118.149.83:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
     }
     
    /*   stage('Functional Testing') {
