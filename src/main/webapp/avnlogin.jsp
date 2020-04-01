@@ -215,7 +215,7 @@ The Mars Help Desk, can assist with issues and concerns regarding:
    <p class="text-center">
    <span id="fullyear">2017</span>
    &#169;EDISON CASE STUDY GROUP. All Rights Reserved.<br>
-   | Virginia | Edison | Chicago | Dallas |
+   | Richmond | Edison | Chicago | Dallas |
   </p>
  </body>
  </html>
