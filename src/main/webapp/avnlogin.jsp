@@ -170,7 +170,7 @@ position: absolute;
 <section class="wlp-login-message-content">
 <p><b>
 <i>
-<font color="darkorange">Help Desk</font>
+<font color="red">Help Desk</font>
 </i>
 </b>
 <br><br>
