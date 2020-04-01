@@ -43,8 +43,13 @@ node {
 	blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7869963.taurus', workspaceId: '461106'	
 	}
 	
+	stage ('JIRA Integration') {
+	jiraIssueSelector(issueSelector: [$class: 'DefaultIssueSelector'])	
+	}	
+	
 	stage ('Slack Confirmation') {
 		slackSend channel: '#devopstraining', color: 'Green', message: 'Pipeline Script is Working!', teamDomain: 'learningdevops-hq', tokenCredentialId: 'slack'
 	}		
+	
 	
 }
