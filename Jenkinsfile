@@ -31,6 +31,10 @@ node {
      stage('Deploy to QA') {
 	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://13.91.95.206:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
     }
+	stage ('JIRA Integration') {
+	jiraIssueSelector(issueSelector: [$class: 'DefaultIssueSelector'])
+		//jiraComment body: 'Issue is Fixed & deployed', issueKey: 'AYON-3'
+	}
     
    /*   stage('Functional Testing') {
 	git 'https://github.com/ayonchak89/MarsLanderApp.git'
@@ -38,15 +42,12 @@ node {
 	publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\functionaltest\\target\\surefire-reports\\', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
 	      
 	}	*/
-	
+	/*
    	stage('Performance Testing') {
 	blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7869963.taurus', workspaceId: '461106'	
 	}
-	
-	stage ('JIRA Integration') {
-	jiraIssueSelector(issueSelector: [$class: 'DefaultIssueSelector'])
-		jiraComment body: 'Issue is Fixed & deployed', issueKey: 'AYON-3'
-	}	
+	*/
+		
 	
 	stage ('Slack Confirmation') {
 		slackSend channel: '#devopstraining', color: 'Green', message: 'Pipeline Script is Working!', teamDomain: 'learningdevops-hq', tokenCredentialId: 'slack'
