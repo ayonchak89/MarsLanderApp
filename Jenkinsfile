@@ -44,7 +44,8 @@ node {
 	}
 	
 	stage ('JIRA Integration') {
-	jiraIssueSelector(issueSelector: [$class: 'DefaultIssueSelector'])	
+	jiraIssueSelector(issueSelector: [$class: 'DefaultIssueSelector'])
+		jiraComment body: 'Issue is Fixed & deployed', issueKey: 'AYON-3'
 	}	
 	
 	stage ('Slack Confirmation') {
