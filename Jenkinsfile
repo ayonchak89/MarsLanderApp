@@ -28,8 +28,18 @@ node {
         server.publishBuildInfo buildInfo
     }
 
-	stage('Deploy to QA') {
-		deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://40.118.144.118:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
-    	}
+     stage('Deploy to QA') {
+	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://40.118.144.118:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
+    }
+    
+      stage('Functional Testing') {
+	buildInfo = rtMaven.run pom: 'functionaltest/pom.xml', goals: 'test'
+	publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\functionaltest\\target\\surefire-reports\\', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+	      
+	}	
+	
+   	stage('Performance Testing') {
+	blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7869963.taurus', workspaceId: '461106'	
+	}
 	 
 }
