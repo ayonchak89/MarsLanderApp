@@ -55,7 +55,18 @@ node {
 	blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7869963.taurus', workspaceId: '461106'	
 	}
 	
-		
+	stage('Deploy to Production') {
+	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://23.101.203.147:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
+    	}
+
+    
+      stage('Sanity Testing') {
+	//rtMaven.tool = "maven"
+	//git 'https://github.com/ayonchak89/MarsLanderApp.git'
+	buildInfo = rtMavenQA.run pom: 'Acceptancetest/pom.xml', goals: 'test'
+	publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\Acceptancetest\\target\\surefire-reports\\', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+	      
+	}	
 	
 	stage ('Slack Confirmation') {
 		slackSend channel: '#devopstraining', color: 'Green', message: 'Pipeline Script is Working!', teamDomain: 'learningdevops-hq', tokenCredentialId: 'slack'
