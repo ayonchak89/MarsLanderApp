@@ -26,11 +26,12 @@ node {
         buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
     }
 
-    stage('Static Code Analysis') {
-	def scannerHome = tool 'SonarScanner 4.0';    
-	withSonarQubeEnv(credentialsId: 'sonarnew') {
-    // some block
-}
+      stage('Static Code Analysis') {
+      def sonarqubeScannerHome = tool name: 'sonarnew', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+      withSonarQubeEnv(credentialsId: 'sonarnew') {
+        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://104.42.107.13:9000 -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=CaseStudyApp -Dsonar.sources=. -Dsonar.tests=. -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.language=java -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java"
+      }
+    } 
 	    
      }
 
@@ -39,7 +40,7 @@ node {
     }
 
      stage('Deploy to QA') {
-	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://13.91.95.206:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
+	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://52.160.120.95:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
     }
 
     
@@ -50,11 +51,11 @@ node {
 	publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\functionaltest\\target\\surefire-reports\\', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
 	      
 	}
-	/*
+	
    	stage('Performance Testing') {
 	blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7869963.taurus', workspaceId: '461106'	
 	}
-	*/
+	
 		
 	
 	stage ('Slack Confirmation') {
