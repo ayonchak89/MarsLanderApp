@@ -26,6 +26,14 @@ node {
         buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
     }
 
+    stage('Static Code Analysis') {
+	def scannerHome = tool 'SonarScanner 4.0';    
+	withSonarQubeEnv(credentialsId: 'sonarnew') {
+    // some block
+}
+	    
+     }
+
     stage('Publish build info') { 
         server.publishBuildInfo buildInfo
     }
