@@ -30,7 +30,7 @@ node {
       stage('Static Code Analysis') {
       def sonarqubeScannerHome = tool name: 'sonarnew', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
       withSonarQubeEnv(credentialsId: 'sonarnew') {
-        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://104.42.99.131:9000 -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=CaseStudyApp -Dsonar.sources=. -Dsonar.tests=. -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.language=java -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java"
+        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://104.42.99.131:9000 -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=CaseStudyAppFinal -Dsonar.sources=. -Dsonar.tests=. -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.language=java -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java"
       
       }    
      }
@@ -54,7 +54,8 @@ node {
 	
 	
    	stage('Performance Testing') {
-	blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7869963.taurus', workspaceId: '461106'	
+	//blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7869963.taurus', workspaceId: '461106'
+	blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7886490.taurus', workspaceId: '473462'
 	}
 	
 	stage('Deploy to Production') {
@@ -71,7 +72,7 @@ node {
 	}	
 	
 	stage ('Slack Confirmation') {
-		slackSend channel: '#devopstraining', color: 'Green', message: 'Pipeline Script is Working & Deployment is Completed!', teamDomain: 'learningdevops-hq', tokenCredentialId: 'slack'
+		slackSend channel: '#casestudydeployment', color: 'Green', message: 'Pipeline Script is Working & Deployment is Completed!', teamDomain: 'learningdevops-hq', tokenCredentialId: 'slack'
 	}		
 	
 	stage ('JIRA Integration') {
