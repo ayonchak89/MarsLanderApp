@@ -56,7 +56,7 @@ node {
 	}
 	
 	stage('Deploy to Production') {
-	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://23.101.203.147:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
+	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://104.42.97.83:8080/')], contextPath: '/ProdWebapp', war: '**/*.war'
     	}
 
     
