@@ -26,6 +26,7 @@ node {
         buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
     }
 
+	
       stage('Static Code Analysis') {
       def sonarqubeScannerHome = tool name: 'sonarnew', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
       withSonarQubeEnv(credentialsId: 'sonarnew') {
@@ -50,6 +51,7 @@ node {
 	publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\functionaltest\\target\\surefire-reports\\', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
 	      
 	}
+	
 	
    	stage('Performance Testing') {
 	blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7869963.taurus', workspaceId: '461106'	
