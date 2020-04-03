@@ -29,7 +29,7 @@ node {
       stage('Static Code Analysis') {
       def sonarqubeScannerHome = tool name: 'sonarnew', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
       withSonarQubeEnv(credentialsId: 'sonarnew') {
-        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://104.42.99.131/:9000 -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=CaseStudyApp -Dsonar.sources=. -Dsonar.tests=. -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.language=java -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java"
+        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://104.42.99.131:9000 -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=CaseStudyApp -Dsonar.sources=. -Dsonar.tests=. -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.language=java -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java"
       
       }    
      }
