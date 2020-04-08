@@ -17,9 +17,9 @@ node {
     stage('Artifactory configuration') {
         // Tool name from Jenkins configuration
         rtMaven.tool = "maven"
-        // Set Artifactory repositories for dependencies resolution and artifacts deployment.
-        rtMaven.deployer releaseRepo:'Jenkins-integration', snapshotRepo:'jenkins-snapshot', server: server
-        rtMaven.resolver releaseRepo:'Jenkins-integration', snapshotRepo:'jenkins-snapshot', server: server
+        // Set Artifactory repositories for dependencies resolution and artifacts deployment. casesetup-release
+        rtMaven.deployer releaseRepo:'casesetup-release', snapshotRepo:'casesetup-snapshot', server: server
+        rtMaven.resolver releaseRepo:'casesetup-release', snapshotRepo:'casesetup-snapshot', server: server
     }
  
     stage('Maven build') {
@@ -52,12 +52,12 @@ node {
 	      
 	}
 	
-	
+	/*
    	stage('Performance Testing') {
 	//blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7869963.taurus', workspaceId: '461106'
 	blazeMeterTest credentialsId: 'BlazeMeterKey', testId: '7886490.taurus', workspaceId: '473462'
 	}
-	
+	*/
 	stage('Deploy to Production') {
 	deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://104.42.97.83:8080/')], contextPath: '/ProdWebapp', war: '**/*.war'
     	}
